@@ -1,8 +1,14 @@
+* {
+  background-color: beige;
+}
+
 h1 {
   text-align: center;
 }
 
 .top-section {
+  background-image: url('../../themartian1-1.jpg');
+  background-size: contain;
   display: flex;
   justify-content: center;
   align-items: center;
