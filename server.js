@@ -17,6 +17,35 @@ app.get('/', (request,response) => {
   response.send('Welcome')
 });
 
+app.get('/api/v1/items', (request, response) => {
+  database('items').select()
+    .then(items => {
+      return response.status(200).json(items)
+    })
+    .catch(error => {
+      return response.status(500).json({ error })
+    })
+})
+
+app.post('/api/v1/items', (request, response) => {
+  const item = request.body;
+
+  for (let requiredParameter of ['name']) {
+    if (!item[requiredParameter]) {
+      return response.status(422).json({
+        error: `You are missing the one required field ${requiredParameter}`
+      })
+    }
+  }
+  database('items').insert(item, 'id')
+    .then(item => {
+      return response.status(201).json({ id: item[0]})
+    })
+    .catch(error => {
+      return response.status(500).json({ error })
+    })
+})
+
 app.listen(app.get('port'), () => {
   console.log(`${app.locals.title} is running on ${app.get('port')}.`)
 });
