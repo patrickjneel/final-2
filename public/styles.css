@@ -18,3 +18,17 @@ h1 {
 button {
   margin-left: 15px;
 }
+
+.item-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.item-card {
+  border: 1px solid black;
+  height: 100px;
+  margin: 10px;
+  width: 350px;
+}
