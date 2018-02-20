@@ -51,4 +51,39 @@ describe('API Endpoints', () => {
       throw error;
     })
   })
+
+  it.only('should post a new item', () => {
+    return chai.request(server)
+    .post('/api/v1/items')
+    .send({
+      name: 'Space-Suit'
+    })
+    .then(response => {
+      response.should.have.status(201)
+      response.should.be.json
+      response.body.should.be.a('object')
+      response.body.should.have.property('id')
+    })
+    .catch(error => {
+      throw error;
+    })
+  })
+
+  it.only('should respond with a 422 if missing name parameter', () => {
+    return chai.request(server)
+    .post('/api/v1/items')
+    .send({
+      gone: 'blastoff'
+    })
+    .then(response => {
+      response.should.have.status(422)
+      response.should.be.json;
+      response.error.text.should.equal(
+        '{"error":"You are missing the one required field name"}'
+      )
+    })
+    .catch(error => {
+      throw error;
+    })
+  })
 })
