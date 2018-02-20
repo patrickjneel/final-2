@@ -1,7 +1,7 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/garagebin',
+    connection: 'postgres://localhost/mars',
     migrations: {
       directory: './db/migrations'
     },
@@ -12,7 +12,7 @@ module.exports = {
   },
   test: {
     client: 'pg',
-    connection: 'postgres://localhost/garagebin_test',
+    connection: 'postgres://localhost/mars_test',
     useNullAsDefualt: true,
     migrations: {
       directory: 'db/migrations'
@@ -20,6 +20,13 @@ module.exports = {
     seeds: {
       directory: './db/seeds/test'
     }
-  }
-  
+  },
+  production: {
+    client: 'pg',
+    connection: `${process.env.DATABASE_URL}?ssl=true`,
+    migrations: {
+      directory: './db/migrations'
+    },
+      useNullAsDefault: true
+    }
 };
