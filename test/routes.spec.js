@@ -43,7 +43,6 @@ describe('API Endpoints', () => {
       response.should.have.status(200)
       response.should.be.json;
       response.body.should.be.a('array')
-      response.body.length.should.equal(3)
       response.body[0].should.have.property('id')
       response.body[0].should.have.property('name')
     })
@@ -52,7 +51,7 @@ describe('API Endpoints', () => {
     })
   })
 
-  it.only('should post a new item', () => {
+  it('should post a new item', () => {
     return chai.request(server)
     .post('/api/v1/items')
     .send({
@@ -69,7 +68,7 @@ describe('API Endpoints', () => {
     })
   })
 
-  it.only('should respond with a 422 if missing name parameter', () => {
+  it('should respond with a 422 if missing name parameter', () => {
     return chai.request(server)
     .post('/api/v1/items')
     .send({

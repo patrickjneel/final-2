@@ -7,9 +7,10 @@ h1 {
 }
 
 .top-section {
-  background-image: url('../../themartian1-1.jpg');
-  background-size: contain;
+  background-image: url('./themartian1-1.jpg');
+  background-size: cover;
   display: flex;
+  height: 300px;
   justify-content: center;
   align-items: center;
 }
