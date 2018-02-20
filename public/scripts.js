@@ -7,7 +7,7 @@ const getItems = async () => {
   const itemJson = await itemData.json()
   const showItems = itemJson.map( item => {
     $('.item-area').append(`
-      <div class="item-card">
+      <div id=${item.id} class="item-card">
         <h4>Item-Name: ${item.name}</h4>
         <button class="delete-btn">
           Delete
@@ -35,7 +35,7 @@ const postItems = async () => {
 
 const postItemDom = (itemName) => {
 $('.item-area').prepend(`
-      <div class="item-card">
+      <div id=${itemName.id} class="item-card">
         <h4>Item-Name: ${itemName}</h4>
         <button class="delete-btn">
           Delete
@@ -45,16 +45,22 @@ $('.item-area').prepend(`
   $('.add-item').val('')
 }
 
-const deleteItem = (event) => {
-  const id = $(event.target).closest('.item-card').attr('class')
-  console.log(id)
-}
+const deleteItem = async (event) => {
+  const id = $(event.target).closest('.item-card').attr('id')
 
-const deleteItemDom = (event) => {
+  const deleteItemData = await fetch(`/api/v1/items/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  // .then(response => response.json())
+  .catch(error => console.log(error));
+
   $(event.target).closest('.item-card').remove()
 }
 
 
 $('.add-btn').on('click', postItems)
-$(document).on('click', '.delete-btn', deleteItem)
+$('.item-area').on('click', '.delete-btn', (event) => deleteItem(event))
 

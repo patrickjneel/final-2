@@ -53,7 +53,7 @@ app.delete('/api/v1/items/:id', (request,response) => {
     if(!item) {
       response.status(422).json({error: 'No item exists'})
     } else {
-      response.sendStatus(204)
+      response.status(200).json({status: 'success'})
     }
   })
   .catch(error => {
